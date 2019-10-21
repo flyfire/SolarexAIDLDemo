@@ -1,0 +1,2 @@
+# SolarexAIDLDemo
+AIDL demo
