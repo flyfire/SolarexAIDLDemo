@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 /**
  * <pre>
  *    Author: houruhou
@@ -25,8 +23,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     private String CREATE_BOOK_TABLE = "create table if not exists " + BOOK_TABLE_NAME + "(_id integer primary key, name text)";
     private String CREATE_USER_TABLE = "create table if not exists " + USER_TABLE_NAME + "(_id integer primary key, name text, gender int)";
 
-    public DBOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DBOpenHelper(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
