@@ -6,10 +6,13 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.Process;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.solarexsoft.aidldemo.Utils;
 
 /**
  * <pre>
@@ -40,7 +43,8 @@ public class BookProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        Log.d(TAG, "onCreate, current thread = " + Thread.currentThread().getName());
+        String processName = Utils.getAppNameByPID(getContext(), Process.myPid());
+        Log.d(TAG, "onCreate process = " + processName + ", current thread = " + Thread.currentThread().getName());
         initProviderData();
         return true;
     }
@@ -59,7 +63,8 @@ public class BookProvider extends ContentProvider {
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-        Log.d(TAG, "query, current thread = " + Thread.currentThread().getName());
+        String processName = Utils.getAppNameByPID(getContext(), Process.myPid());
+        Log.d(TAG, "query, current process = " + processName + ", thread = " + Thread.currentThread().getName());
         String table = getTableName(uri);
         if (table == null) {
             throw new IllegalArgumentException("Unsupport uri = " + uri);
@@ -83,14 +88,16 @@ public class BookProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        Log.d(TAG, "getType thread = " + Thread.currentThread().getName());
+        String processName = Utils.getAppNameByPID(getContext(), Process.myPid());
+        Log.d(TAG, "getType  process = " + processName + ",thread = " + Thread.currentThread().getName());
         return null;
     }
 
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-        Log.d(TAG, "insert thread = " + Thread.currentThread().getName());
+        String processName = Utils.getAppNameByPID(getContext(), Process.myPid());
+        Log.d(TAG, "insert  process = " + processName + ",thread = " + Thread.currentThread().getName());
         String table = getTableName(uri);
         if (table == null) {
             throw new IllegalArgumentException("Unsupport uri = " + uri);
@@ -102,7 +109,8 @@ public class BookProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        Log.d(TAG, "delete thread = " + Thread.currentThread().getName());
+        String processName = Utils.getAppNameByPID(getContext(), Process.myPid());
+        Log.d(TAG, "delete  process = " + processName + ",thread = " + Thread.currentThread().getName());
         String table = getTableName(uri);
         if (table == null) {
             throw new IllegalArgumentException("Unsupport uri = " + uri);
@@ -116,7 +124,8 @@ public class BookProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        Log.d(TAG, "update thread = " + Thread.currentThread().getName());
+        String processName = Utils.getAppNameByPID(getContext(), Process.myPid());
+        Log.d(TAG, "update  process = " + processName + ",thread = " + Thread.currentThread().getName());
         String table = getTableName(uri);
         if (table == null) {
             throw new IllegalArgumentException("Unsupport uri = " + uri);
